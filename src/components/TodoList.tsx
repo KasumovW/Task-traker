@@ -1,4 +1,3 @@
-import React from "react";
 import { List } from "@mui/material";
 import TodoItem from "./TodoItem";
 import TodoEmptyState from "./TodoEmptyState";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, Checkbox, IconButton, TextField } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -8,9 +8,9 @@ import type { Todo } from "../types";
 
 interface TodoItemProps {
 	todo: Todo;
-	onToggle: (id: number) => void;
-	onDelete: (id: number) => void;
-	onEdit: (id: number, text: string) => void;
+	onToggle: (id: string) => void;
+	onDelete: (id: string) => void;
+	onEdit: (id: string, text: string) => void;
 }
 
 export default function TodoItem({ todo, onToggle, onDelete, onEdit }: TodoItemProps) {
@@ -19,7 +19,7 @@ export default function TodoItem({ todo, onToggle, onDelete, onEdit }: TodoItemP
 
 	const handleSave = () => {
 		if (editText.trim()) {
-			onEdit(todo.id, editText);
+			onEdit(String(todo.id), editText);
 			setIsEditing(false);
 		}
 	};
@@ -32,7 +32,7 @@ export default function TodoItem({ todo, onToggle, onDelete, onEdit }: TodoItemP
 						<IconButton edge="end" onClick={() => setIsEditing(true)}>
 							<EditIcon />
 						</IconButton>
-						<IconButton edge="end" onClick={() => onDelete(todo.id)} sx={{ ml: 1 }}>
+						<IconButton edge="end" onClick={() => onDelete(String(todo.id))} sx={{ ml: 1 }}>
 							<DeleteIcon color="error" />
 						</IconButton>
 					</>
@@ -49,7 +49,7 @@ export default function TodoItem({ todo, onToggle, onDelete, onEdit }: TodoItemP
 			}
 			disablePadding
 		>
-			<ListItemButton onClick={() => !isEditing && onToggle(todo.id)}>
+			<ListItemButton onClick={() => !isEditing && onToggle(String(todo.id))}>
 				<ListItemIcon>
 					<Checkbox edge="start" checked={todo.completed} tabIndex={-1} disableRipple />
 				</ListItemIcon>
